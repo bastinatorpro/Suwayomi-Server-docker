@@ -1,14 +1,8 @@
 name: Build a container
 
 on:
-  workflow_call:
-    inputs:
-      tachidesk_release_type:
-        required: true
-        default: 'preview'
-        description: 'Suwayomi Release Type'
-        type: string
-
+  push:
+    branches: [ main ]
 
 jobs:
   build_the_container:
