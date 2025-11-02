@@ -10,22 +10,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          # We want a full clone of the repo so that the rev-list count below is correct
-          fetch-depth: 0
+        uses: actions/checkout@v4
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       # Now we build for all the platforms we support here. NB: the amd64
       # won't be rebuilt since the local docker daemon has that still cached
@@ -34,5 +25,3 @@ jobs:
         with:
           context: .
           platforms: linux/arm/v6
-          push: true
-          tags: youruser/suwayomi-server:armv6
